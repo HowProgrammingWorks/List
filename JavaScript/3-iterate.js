@@ -2,8 +2,8 @@
 
 const cons = (value, next = null) => ({ value, next });
 
-const first = (list) => list.value; // car / head
-const rest = (list) => list.next; // cdr / tail
+const first = (list) => list.value;
+const rest = (list) => list.next;
 
 const list = (...values) => {
   let result = null;
@@ -14,8 +14,8 @@ const list = (...values) => {
 };
 
 const iterate = (list, fn) => {
-  for (let current = list; current !== null; current = rest(current)) {
-    fn(first(current));
+  for (let cur = list; cur !== null; cur = rest(cur)) {
+    fn(first(cur));
   }
 };
 
