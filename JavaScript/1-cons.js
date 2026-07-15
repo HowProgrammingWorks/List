@@ -3,6 +3,25 @@
 const cons = (value, next = null) => ({ value, next });
 
 // Usage
+//
+//   branch1   branch2   branch3
+//      │         │         │
+//      ▼         ▼         ▼
+//     [10]      [20]      [30]
+//      │         │         │
+//      └────┬────┴─────────┘
+//           │
+//           ▼
+//          [3] ← three
+//           │
+//           ▼
+//          [2] ← two
+//           │
+//           ▼
+//          [1] ← one
+//           │
+//           ▼
+//         null ← empty
 
 const empty = null;
 const one = cons(1, empty);
