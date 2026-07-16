@@ -27,6 +27,41 @@ class List {
     return this;
   }
 
+  insert(index, value) {
+    if (index <= 0) return this.prepend(value);
+    if (index >= this.length) return this.append(value);
+    let current = this.head;
+    let i = 0;
+    while (i < index - 1) {
+      current = current.next;
+      i++;
+    }
+    current.next = { value, next: current.next };
+    this.length++;
+    return this;
+  }
+
+  delete(index) {
+    if (this.head === null) throw new Error('List is empty');
+    if (index < 0 || index >= this.length) {
+      throw new Error('Index out of bounds');
+    }
+    if (index === 0) {
+      this.head = this.head.next;
+      this.length--;
+      return this;
+    }
+    let current = this.head;
+    let i = 0;
+    while (i < index - 1) {
+      current = current.next;
+      i++;
+    }
+    current.next = current.next.next;
+    this.length--;
+    return this;
+  }
+
   at(index) {
     let current = this.head;
     let i = 0;
@@ -38,13 +73,22 @@ class List {
   }
 
   toArray() {
-    const result = [];
+    const result = new Array(this.length);
     let current = this.head;
+    let i = 0;
     while (current !== null) {
-      result.push(current.value);
+      result[i++] = current.value;
       current = current.next;
     }
     return result;
+  }
+
+  *[Symbol.iterator]() {
+    let current = this.head;
+    while (current !== null) {
+      yield current.value;
+      current = current.next;
+    }
   }
 }
 
@@ -63,3 +107,14 @@ list.prepend(3);
 //                └───┘    └───┘    └───┘
 
 console.log(`list.toArray() ->`, list.toArray());
+console.log(`list.at(1) ->`, list.at(1));
+console.log(`[...list] ->`, [...list]);
+
+list.append(0);
+console.log(`after append(0) ->`, list.toArray());
+
+list.insert(1, 4);
+console.log(`after insert(1, 4) ->`, list.toArray());
+
+list.delete(2);
+console.log(`after delete(2) ->`, list.toArray());
