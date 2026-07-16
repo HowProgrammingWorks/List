@@ -7,7 +7,7 @@ Linked lists step by step: cons cells, car/cdr, immutable classes, then mutable 
 - [1-cons.js](JavaScript/1-cons.js) — frozen `cons(value, next)` cells; several heads share one tail
 - [2-access.js](JavaScript/2-access.js) — `first` / `rest` (car / cdr) and walk a list with `iterate`
 - [3-list.js](JavaScript/3-list.js) — `list(...values)` builds a chain; iterate over it
-- [4-class.js](JavaScript/4-class.js) — frozen class `ConsList` with `prepend`, `first`, `rest`, and iterator
+- [4-class.js](JavaScript/4-class.js) — `ConsList` with private fields, `prepend`, `first`, `rest`, and iterator
 - [5-mutable.js](JavaScript/5-mutable.js) — mutable singly linked `List` (`prepend`, `append`, `insert`, `delete`, `at`)
 - [6-double.js](JavaScript/6-double.js) — mutable `DoubleList` with the same API; O(1) `append` via `tail`
 - [7-circular.js](JavaScript/7-circular.js) — mutable `CircularList` with the same API; last `next` points to `head`
@@ -40,7 +40,7 @@ Immutable `prepend` is O(1): allocate one new cell that points at the old head.
 
 ## Immutable class (4)
 
-`ConsList` freezes each instance. `prepend` returns a new list; older versions stay unchanged.
+`ConsList` keeps `#value`, `#next`, and `#size` private. `prepend` returns a new list; older versions stay unchanged.
 
 ```js
 const three = empty.prepend(1).prepend(2).prepend(3);

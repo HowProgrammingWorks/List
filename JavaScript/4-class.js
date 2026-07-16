@@ -1,39 +1,48 @@
 'use strict';
 
 class ConsList {
-  value = undefined;
-  next = null;
-  size = 0;
+  #value = undefined;
+  #next = null;
+  #size = 0;
 
   static EMPTY = new ConsList();
 
   constructor(value = undefined, next = null, size = 0) {
-    this.value = value;
-    this.next = next;
-    this.size = size;
-    Object.freeze(this);
+    this.#value = value;
+    this.#next = next;
+    this.#size = size;
   }
 
   first() {
-    return this.value;
+    return this.#value;
   }
 
   rest() {
-    if (this.next === null) return ConsList.EMPTY;
-    return this.next;
+    if (this.#next === null) return ConsList.EMPTY;
+    return this.#next;
+  }
+
+  get size() {
+    return this.#size;
   }
 
   prepend(value = undefined) {
-    const next = this.size === 0 ? null : this;
-    return new ConsList(value, next, this.size + 1);
+    const next = this.#size === 0 ? null : this;
+    return new ConsList(value, next, this.#size + 1);
   }
 
-  *[Symbol.iterator]() {
+  [Symbol.iterator]() {
     let current = this;
-    while (current && current.size !== 0) {
-      yield current.value;
-      current = current.next;
-    }
+    return {
+      next: () => {
+        if (!current || current.#size === 0) {
+          return { done: true, value: undefined };
+        }
+        const value = current.#value;
+        current = current.#next;
+        return { done: false, value };
+      },
+    };
   }
 }
 
