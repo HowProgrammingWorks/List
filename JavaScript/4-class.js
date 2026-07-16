@@ -11,6 +11,7 @@ class ConsList {
     this.value = value;
     this.next = next;
     this.size = size;
+    Object.freeze(this);
   }
 
   first() {

@@ -1,6 +1,6 @@
 'use strict';
 
-const cons = (value, next = null) => ({ value, next });
+const cons = (value, next = null) => Object.freeze({ value, next });
 
 const first = (list) => list.value;
 const rest = (list) => list.next;

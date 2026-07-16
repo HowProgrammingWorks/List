@@ -1,6 +1,6 @@
 'use strict';
 
-const cons = (value, next = null) => ({ value, next });
+const cons = (value, next = null) => Object.freeze({ value, next });
 
 const first = (list) => list.value; // car / head
 const rest = (list) => list.next; // cdr / tail

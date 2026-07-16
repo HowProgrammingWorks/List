@@ -1,6 +1,6 @@
 'use strict';
 
-const cons = (value, next = null) => ({ value, next });
+const cons = (value, next = null) => Object.freeze({ value, next });
 
 // Usage
 //
